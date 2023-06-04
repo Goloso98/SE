@@ -1,0 +1,37 @@
+services:
+  mqtt:
+    image: eclipse-mosquitto
+    container_name: mqtt
+    restart: unless-stopped
+    ports:
+      - "1883:1883"
+        #- "9001:9001"
+    environment:
+      - TZ=Europe/Lisbon
+    volumes:
+      - ./mqtt_data/config:/mosquitto/config/:ro
+        # data
+        # log
+  nodered:
+    image: nodered/node-red
+    container_name: nodered
+    restart: unless-stopped
+    environment:
+      - TZ=Europe/Lisbon
+    ports:
+      - "1880:1880"
+    volumes:
+      - ./nodered_data:/data
+      - ./music:/music:ro
+  audioserver:
+    build:
+      context: ./audio
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    privileged: true
+    environment:
+      - TZ=Europe/Lisbon
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./music:/music
