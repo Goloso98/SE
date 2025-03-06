@@ -1,5 +1,6 @@
 # SE
 Trabalho de smart home para a cadeira de sistemas embutidos
+![Project image](SE_final_result.jpg)
 
 ## esp8266
 Na pasta `esp8266` encontra-se o projeto que corre nos arduinos.
